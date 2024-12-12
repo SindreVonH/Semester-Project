@@ -1,24 +1,38 @@
 export default async function router(pathname = window.location.pathname) {
-  switch (pathname) {
-    case '/':
-      await import('./views/auth.js');
+  switch (true) {
+    case pathname === '/': // Homepage
+      await import('./views/home.js');
       break;
-    case '/auth/login/':
+
+    case pathname === '/auctions': // Auction listing page
+      await import('./views/auctionList.js');
+      break;
+
+    case /^\/auctions\/item\/\d+$/.test(pathname): // Individual auction page
+      await import('./views/auctionItem.js');
+      break;
+
+    case pathname === '/pages/auth/login/index.html': // Login page
       await import('./views/login.js');
       break;
-    case '/auth/register/':
+
+    case pathname === '/pages/auth/register/index.html': // Register page
       await import('./views/register.js');
       break;
-    case '/post/create/':
-      await import('./views/postCreate.js');
-      break;
-    case '/post/edit/':
-      await import('./views/postEdit.js');
-      break;
-    case '/profile/':
+
+    case pathname === '/profile': // Profile page
       await import('./views/profile.js');
       break;
-    default:
+
+    case pathname === '/post/create': // Create auction page
+      await import('./views/auctionCreate.js');
+      break;
+
+    case /^\/post\/edit\/\d+$/.test(pathname): // Edit auction page
+      await import('./views/auctionEdit.js');
+      break;
+
+    default: // 404 Error page
       await import('./views/errorFound.js');
   }
 }

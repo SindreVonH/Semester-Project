@@ -1,15 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="stylesheet" href="/src/css/tailwind-built.css">
-</head>
-<body>
-  <h1 class="text-2xl text-center">Login Page</h1>
-  <script>
-    console.log('Login CSS loaded successfully!');
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - Your App</title>
+    <!-- Vite will handle script bundling -->
+    <script type="module" src="/main.js"></script>
+  </head>
+  <body>
+    <h1>Login</h1>
+    <form name="login" id="loginForm">
+      <div>
+        <label for="email">Email</label>
+        <input id="email" type="email" name="email" required />
+      </div>
+
+      <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required />
+      </div>
+
+      <a href="/pages/auth/register/index.html">Register</a>
+      <button type="submit">Login</button>
+    </form>
+    <!-- Optional: Loading Spinner -->
+    <div id="loadingSpinner" style="display: none;">
+      <p>Loading...</p>
+    </div>
+  </body>
 </html>
