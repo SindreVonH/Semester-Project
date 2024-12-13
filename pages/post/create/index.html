@@ -1,15 +1,36 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
-  <link rel="stylesheet" href="/src/css/tailwind-built.css">
-</head>
-<body>
-  <h1 class="text-2xl text-center">Create Post Page</h1>
-  <script>
-    console.log('Login CSS loaded successfully!');
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Auction</title>
+    <link rel="stylesheet" href="/src/css/tailwind-built.css">
+    <script type="module" src="/main.js" defer></script>
+  </head>
+  <body>
+    <h1 class="text-center text-2xl">Create New Auction</h1>
+    <form id="create-listing-form" class="flex flex-col gap-4 max-w-md mx-auto mt-6">
+      <div>
+        <label for="title" class="block">Title</label>
+        <input id="title" name="title" type="text" required class="w-full border p-2">
+      </div>
+      <div>
+        <label for="description" class="block">Description</label>
+        <textarea id="description" name="description" class="w-full border p-2"></textarea>
+      </div>
+      <div>
+        <label for="tags" class="block">Tags (comma-separated)</label>
+        <input id="tags" name="tags" type="text" class="w-full border p-2">
+      </div>
+      <div>
+        <label for="media" class="block">Media URL</label>
+        <input id="media" name="media" type="url" class="w-full border p-2">
+      </div>
+      <div>
+        <label for="endsAt" class="block">End Date</label>
+        <input id="endsAt" name="endsAt" type="datetime-local" required class="w-full border p-2">
+      </div>
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Create Listing</button>
+    </form>
+  </body>
 </html>

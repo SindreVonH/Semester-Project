@@ -4,11 +4,11 @@ export default async function router(pathname = window.location.pathname) {
       await import('./views/home.js');
       break;
 
-    case pathname === '/auctions': // Auction listing page
+    case pathname === '/pages/auctions/index.html': // Auction listing page
       await import('./views/auctionList.js');
       break;
 
-    case /^\/auctions\/item\/\d+$/.test(pathname): // Individual auction page
+      case /^\/pages\/auctions\/item\/index\.html/.test(pathname): // Individual auction page
       await import('./views/auctionItem.js');
       break;
 
