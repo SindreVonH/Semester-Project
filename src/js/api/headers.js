@@ -5,7 +5,7 @@ export const headers = () => {
 
   return {
     'Content-Type': 'application/json',
-    'x-api-key': API_KEY, // Include the API key
+    'x-noroff-api-key': API_KEY, // Include the API key
     ...(token && { 'Authorization': `Bearer ${token}` }),
   };
 };

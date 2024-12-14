@@ -8,3 +8,6 @@ export const API_AUTH_REGISTER = `${API_AUTH}/register`;
 
 // Auction Endpoints
 export const API_AUCTIONS = `${API_BASE}/auction/listings`; // Create and fetch listings
+
+// Profile Endpoints
+export const API_PROFILES = `${API_BASE}/auction/profiles`; // Fetch and manage user profiles
