@@ -16,7 +16,6 @@ export default defineConfig({
         register: resolve(__dirname, './pages/auth/register/index.html'), // Register page
         profile: resolve(__dirname, './pages/profile/index.html'), // Profile page
         createAuction: resolve(__dirname, './pages/post/create/index.html'), // Create auction page
-        editAuction: resolve(__dirname, './pages/post/edit/index.html'), // Edit auction page
       },
     },
   },

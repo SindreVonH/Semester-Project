@@ -45,10 +45,6 @@ export default async function router(pathname = window.location.pathname) {
       await import('./views/auctionCreate.js');
       break;
 
-    case /^\/post\/edit\/\d+$/.test(pathname): // Edit auction page
-      await import('./views/auctionEdit.js');
-      break;
-
     default: // 404 Error page
       await import('./views/errorFound.js');
   }
