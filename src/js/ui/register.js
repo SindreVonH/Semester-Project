@@ -5,27 +5,24 @@ import { registerUser } from '../api/auth/register.js';
  * @param {Event} event - The form submission event.
  */
 export async function onRegister(event) {
-  event.preventDefault(); // Prevent default form submission behavior
+  event.preventDefault(); 
 
   const form = event.target;
   const formData = new FormData(form);
-  const data = Object.fromEntries(formData.entries()); // Convert FormData to a plain object
-
-  console.log('Form Data to be sent:', data); // Debugging the form data
-
-  const spinner = document.getElementById('loadingSpinner'); // Spinner element
-  if (spinner) spinner.style.display = 'block'; // Show spinner
+  const data = Object.fromEntries(formData.entries()); 
+  const spinner = document.getElementById('loadingSpinner'); 
+  if (spinner) spinner.style.display = 'block'; 
 
   try {
-    const result = await registerUser(data); // Call API for registration
+    const result = await registerUser(data); 
     console.log('Registration Successful:', result);
     alert('Registration successful! You can now log in.');
-    window.location.href = "/pages/auth/login/index.html"; // Redirect to login page
+    window.location.href = "/pages/auth/login/index.html"; 
   } catch (error) {
     alert('Registration failed: ' + error.message);
     console.error('Registration Error:', error);
   } finally {
-    if (spinner) spinner.style.display = 'none'; // Hide spinner
+    if (spinner) spinner.style.display = 'none'; 
   }
 }
 

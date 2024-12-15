@@ -8,17 +8,16 @@ import { headers } from "../headers.js";
  */
 export const registerUser = async (data) => {
   try {
-    console.log('Register Request Data:', data); // Debugging the request payload
+    console.log('Register Request Data:', data); 
 
     const response = await fetch(API_AUTH_REGISTER, {
       method: 'POST',
-      headers: headers(), // Include the API key and other headers
-      body: JSON.stringify(data), // Convert data to JSON
+      headers: headers(), 
+      body: JSON.stringify(data), 
     });
 
     const result = await response.json();
-    console.log('Register API Response:', result); // Log the entire response
-
+    console.log('Register API Response:', result); 
     if (!response.ok) {
       const errorMessage =
         result.errors && Array.isArray(result.errors)
@@ -29,7 +28,7 @@ export const registerUser = async (data) => {
 
     return result;
   } catch (error) {
-    console.error('Fetch Error:', error); // Log fetch errors
+    console.error('Fetch Error:', error); 
     throw error;
   }
 };

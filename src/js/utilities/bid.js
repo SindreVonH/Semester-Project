@@ -31,6 +31,5 @@ export const submitBid = async (id, amount) => {
     return result;
   } catch (error) {
     alert('Failed to place bid. Please try again.');
-    console.error('Bid submission error:', error);
   }
 };

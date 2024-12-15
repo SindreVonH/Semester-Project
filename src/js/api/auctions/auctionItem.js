@@ -13,5 +13,5 @@ export const fetchSingleItem = async (id) => {
     throw new Error(error.message || 'Failed to fetch item');
   }
 
-  return response.json(); // Return the parsed response data
+  return response.json(); 
 };

@@ -9,8 +9,7 @@ import { headers } from '../headers.js';
 export const searchListings = async (query) => {
   try {
     const url = `${API_AUCTIONS}/search?q=${encodeURIComponent(query)}`;
-    console.log('Search URL:', url);
-
+  
     const response = await fetch(url, {
       method: 'GET',
       headers: headers(),
@@ -23,7 +22,7 @@ export const searchListings = async (query) => {
     }
 
     const result = await response.json();
-    return result.data; // Return the search results
+    return result.data; 
   } catch (error) {
     console.error('Search API Error:', error);
     throw error;

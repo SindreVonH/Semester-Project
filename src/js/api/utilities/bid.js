@@ -9,7 +9,6 @@ import { headers } from '../headers.js';
  */
 export const placeBid = async (id, amount) => {
   try {
-    console.log('Placing bid:', { id, amount }); // Log the request data
     const response = await fetch(API_AUCTION_BID(id), {
       method: 'POST',
       headers: headers(),
@@ -22,8 +21,6 @@ export const placeBid = async (id, amount) => {
       console.error('Bid API Error:', result);
       throw new Error(result.errors?.[0]?.message || 'Failed to place bid.');
     }
-
-    console.log('Bid placed successfully:', result);
     return result.data;
   } catch (error) {
     console.error('Error placing bid:', error);

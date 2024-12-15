@@ -15,7 +15,6 @@ export const getUserBids = async () => {
     }
 
     const url = `${API_PROFILES}/${name}/bids?_listings=true`;
-    console.log('Fetching user bids from URL:', url);
 
     const response = await fetch(url, {
       method: 'GET',
@@ -23,7 +22,6 @@ export const getUserBids = async () => {
     });
 
     const result = await response.json();
-    console.log('User Bids API Response:', result);
 
     if (!response.ok) {
       const errorMessage =

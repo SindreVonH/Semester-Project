@@ -20,7 +20,6 @@ export async function onLogin(event) {
     window.location.href = '/index.html'; // Redirect to homepage
   } catch (error) {
     alert('Login failed: ' + error.message);
-    console.error('Login Error:', error);
   } finally {
     if (spinner) spinner.style.display = 'none'; // Hide spinner
   }

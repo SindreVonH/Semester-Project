@@ -15,15 +15,13 @@ export const getUserWins = async () => {
     }
 
     const url = `${API_PROFILES}/${name}/wins`;
-    console.log('Fetching user wins from URL:', url);
-
+  
     const response = await fetch(url, {
       method: 'GET',
       headers: headers(),
     });
 
     const result = await response.json();
-    console.log('User Wins API Response:', result);
 
     if (!response.ok) {
       const errorMessage =
@@ -33,7 +31,7 @@ export const getUserWins = async () => {
       throw new Error(errorMessage);
     }
 
-    return result.data; // Return the array of wins
+    return result.data;
   } catch (error) {
     console.error('Error fetching user wins:', error);
     throw error;

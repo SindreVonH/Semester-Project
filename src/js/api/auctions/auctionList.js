@@ -9,7 +9,6 @@ import { headers } from '../headers.js';
 export const fetchAllListings = async (isActive = false) => {
   try {
     const url = isActive ? `${API_AUCTIONS}?_active=true` : API_AUCTIONS;
-    console.log('Fetching listings from URL:', url); // Debug the URL
     const response = await fetch(url, {
       method: 'GET',
       headers: headers(),
@@ -21,7 +20,6 @@ export const fetchAllListings = async (isActive = false) => {
     }
 
     const data = await response.json();
-    console.log('API Response Data:', data); // Debug the response data
     return data.data;
   } catch (error) {
     console.error('Error fetching listings:', error);

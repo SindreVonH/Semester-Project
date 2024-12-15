@@ -27,7 +27,6 @@ export const updateProfile = async (data) => {
     }
 
     const result = await response.json();
-    console.log('Profile updated:', result);
     return result.data;
   } catch (error) {
     console.error('Error updating profile:', error);

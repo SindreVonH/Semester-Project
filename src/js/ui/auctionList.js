@@ -116,12 +116,10 @@ export const initializeAuctionList = async () => {
           renderListings(results);
         }
       } catch (error) {
-        console.error('Error during search:', error);
         container.innerHTML = `<p class="text-center text-danger">Error: ${error.message}</p>`;
       }
     });
   } catch (error) {
-    console.error('Error initializing auction list:', error);
     alert('Failed to load auction listings.');
   }
 };

@@ -15,7 +15,6 @@ export const getUserListings = async () => {
     }
 
     const url = `${API_PROFILES}/${name}/listings`;
-    console.log('Fetching user listings from URL:', url);
 
     const response = await fetch(url, {
       method: 'GET',
@@ -23,8 +22,7 @@ export const getUserListings = async () => {
     });
 
     const result = await response.json();
-    console.log('User Listings API Response:', result);
-
+  
     if (!response.ok) {
       const errorMessage =
         result.errors && Array.isArray(result.errors)
@@ -33,7 +31,7 @@ export const getUserListings = async () => {
       throw new Error(errorMessage);
     }
 
-    return result.data; // Return the array of listings
+    return result.data; 
   } catch (error) {
     console.error('Error fetching user listings:', error);
     throw error;

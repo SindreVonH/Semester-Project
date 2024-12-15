@@ -15,16 +15,13 @@ export const getUserProfile = async () => {
     }
 
     const url = `${API_PROFILES}/${name}`;
-    console.log('Fetching profile from URL:', url); // Debugging the request URL
-
+    
     const response = await fetch(url, {
       method: 'GET',
       headers: headers(),
     });
 
     const result = await response.json();
-    console.log('Profile API Response:', result); // Log the API response
-
     if (!response.ok) {
       const errorMessage =
         result.errors && Array.isArray(result.errors)
@@ -33,9 +30,8 @@ export const getUserProfile = async () => {
       throw new Error(errorMessage);
     }
 
-    return result.data; // Return the profile data
+    return result.data;
   } catch (error) {
-    console.error('Error fetching user profile:', error);
-    throw error; // Re-throw the error for handling in the UI
+    throw error; 
   }
 };

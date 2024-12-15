@@ -18,20 +18,16 @@ export const initializeBidFeature = () => {
 
     const formData = new FormData(bidForm);
     const amount = parseFloat(formData.get('bid-amount'));
-    const auctionId = bidForm.dataset.auctionId; // Get auction ID from the form's data attribute
+    const auctionId = bidForm.dataset.auctionId; 
 
     if (!amount || amount <= 0) {
       alert('Please enter a valid bid amount.');
       return;
     }
-
-    console.log('Submitting bid:', { auctionId, amount }); // Log the bid details
-
     try {
       await submitBid(auctionId, amount);
-      await initializeSingleItemPage(); // Refresh the page to update details
+      await initializeSingleItemPage(); 
     } catch (error) {
-      console.error('Bid submission error:', error);
       alert('Failed to place bid. Please try again.');
     }
   });
@@ -41,12 +37,11 @@ export const initializeBidFeature = () => {
  * Render Item Details by Populating Existing DOM Elements
  */
 const renderItemDetails = (item) => {
-  // Populate Item Information
   const itemTitle = document.getElementById('item-title');
   const itemImage = document.getElementById('item-image');
   const itemDescription = document.getElementById('item-description');
   const itemTags = document.getElementById('item-tags');
-  const itemStartDate = document.getElementById('item-start-date'); // Nytt element
+  const itemStartDate = document.getElementById('item-start-date'); 
   const itemEndsAt = document.getElementById('item-ends-at');
   const highestBid = document.getElementById('highest-bid');
   const bidCount = document.getElementById('bid-count');
@@ -68,7 +63,7 @@ const renderItemDetails = (item) => {
     itemTags.textContent =
       item.tags && item.tags.length ? item.tags.join(', ') : 'None';
   if (itemStartDate)
-    itemStartDate.textContent = new Date(item.created).toLocaleString(); // Ny linje for startdato
+    itemStartDate.textContent = new Date(item.created).toLocaleString(); 
   if (itemEndsAt)
     itemEndsAt.textContent = new Date(item.endsAt).toLocaleString();
   if (highestBid)
@@ -136,10 +131,8 @@ export const initializeSingleItemPage = async () => {
 
   try {
     const item = await fetchSingleItem(itemId);
-    console.log('Fetched item:', item.data); // Log the fetched item details
-    renderItemDetails(item.data); // Populate the item details in the existing HTML
+    renderItemDetails(item.data); 
   } catch (error) {
-    console.error('Error fetching item details:', error);
     alert('Failed to load item details. Please try again later.');
   }
 };

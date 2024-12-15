@@ -47,7 +47,6 @@ export const initializeCreateAuctionUI = () => {
   const form = document.getElementById('create-listing-form'); // Oppdatert for å matche HTML
   if (form) {
     form.addEventListener('submit', handleCreateAuctionFormSubmit);
-    console.log('Create Auction form event listener attached.');
   } else {
     console.error('Create Auction form not found.');
   }

@@ -83,7 +83,6 @@ const initializeEditProfile = () => {
       alert('Profile updated successfully!');
       editForm.classList.add('d-none');
     } catch (error) {
-      console.error('Error updating profile:', error);
       alert('Failed to update profile. Please try again later.');
     }
   });
@@ -113,6 +112,5 @@ export const initializeProfileUI = async () => {
     initializeEditProfile();
   } catch (error) {
     alert('Failed to load profile, listings, bids, or wins. Please try again later.');
-    console.error('Error initializing profile page:', error);
   }
 };

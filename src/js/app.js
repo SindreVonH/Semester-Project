@@ -4,5 +4,3 @@ import initializeRouter from './router/index.js';
 document.addEventListener('DOMContentLoaded', () => {
   initializeRouter(window.location.pathname);
 });
-
-console.log('App.js is working!');
