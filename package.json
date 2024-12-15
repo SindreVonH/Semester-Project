@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "build:scss": "sass --quiet-deps src/scss/styles.scss dist/styles.css --no-source-map"
-  },
+  "dev": "vite",
+  "build": "npm run build:scss && vite build",
+  "preview": "vite preview",
+  "build:scss": "sass --quiet-deps src/scss/styles.scss dist/styles.css --no-source-map"
+},
   "devDependencies": {
     "eslint": "^9.16.0",
     "eslint-config-prettier": "^9.1.0",
