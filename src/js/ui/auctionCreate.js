@@ -1,33 +1,54 @@
-import { createListing } from '../api/post/auctionCreate.js';
+import { createAuction } from '../api/post/auctionCreate.js';
 
 /**
- * Handle the create listing form submission.
- * @param {Event} event - The form submit event.
+ * Handles the form submission to create an auction.
+ * @param {Event} event - The form submission event.
  */
-export async function handleCreateListing(event) {
-  event.preventDefault(); // Prevent default form submission behavior
+export const handleCreateAuctionFormSubmit = async (event) => {
+  event.preventDefault();
 
   const form = event.target;
-  const formData = new FormData(form);
 
-  // Collect data from the form
+  // Bootstrap form validation
+  if (!form.checkValidity()) {
+    form.classList.add('was-validated'); // Bootstrap visuell validering
+    return;
+  }
+
+  // Lag dataobjektet for API-kallet
   const data = {
-    title: formData.get('title'),
-    description: formData.get('description') || null,
-    tags: formData.get('tags') ? formData.get('tags').split(',').map(tag => tag.trim()) : [],
-    media: formData.get('media') ? [{ url: formData.get('media'), alt: '' }] : [],
-    endsAt: formData.get('endsAt'),
+    title: form.title.value.trim(),
+    description: form.description.value.trim() || null,
+    endsAt: new Date(form.endsAt.value).toISOString(),
+    tags: form.tags.value.trim()
+      ? form.tags.value.trim().split(',').map((tag) => tag.trim())
+      : [],
+    media: form.mediaUrl.value.trim()
+      ? [{ url: form.mediaUrl.value.trim(), alt: form.mediaAlt.value.trim() || '' }]
+      : [],
   };
 
   try {
-    // Call the API to create the listing
-    const result = await createListing(data);
-    alert('Auction created successfully!');
-
-    // Redirect to the auctions page
-    window.location.href = '/pages/auctions/index.html';
+    const result = await createAuction(data);
+    alert('Auction successfully created!');
+    console.log('API Response:', result);
+    form.reset(); // Nullstill skjemaet
+    form.classList.remove('was-validated'); // Fjern valideringsklasser
   } catch (error) {
-    console.error('Error creating auction:', error);
-    alert(`Failed to create listing: ${error.message}`);
+    alert(`Failed to create auction: ${error.message}`);
   }
-}
+};
+
+/**
+ * Initialize the Create Auction UI
+ * This function sets up the create auction page with form handling logic.
+ */
+export const initializeCreateAuctionUI = () => {
+  const form = document.getElementById('create-listing-form'); // Oppdatert for å matche HTML
+  if (form) {
+    form.addEventListener('submit', handleCreateAuctionFormSubmit);
+    console.log('Create Auction form event listener attached.');
+  } else {
+    console.error('Create Auction form not found.');
+  }
+};

@@ -1,35 +1,39 @@
-import { API_AUCTIONS } from '../constants.js';
-import { headers } from '../headers.js';
+import { API_AUCTIONS } from "../constants.js";
+import { headers } from "../headers.js";
 
 /**
- * Create a new auction listing.
- * @param {Object} listingData - The data for the new listing.
- * @returns {Promise<Object>} - The API response data.
+ * Create a new auction listing by submitting the data to the API.
+ * @param {Object} data - The auction data to submit.
+ * @param {string} data.title - The title of the auction.
+ * @param {string} [data.description] - The description of the auction.
+ * @param {string} data.endsAt - The end date/time of the auction in ISO 8601 format.
+ * @param {string[]} [data.tags] - Tags for the auction.
+ * @param {Array<{url: string, alt: string}>} [data.media] - Media objects with URL and alt text.
+ * @returns {Promise<Object>} - The response data from the API.
  */
-export const createListing = async (listingData) => {
+export const createAuction = async (data) => {
   try {
-    console.log('Create Listing Request Data:', listingData); // Log the request payload
+    console.log('Submitting auction data:', data);
 
     const response = await fetch(API_AUCTIONS, {
       method: 'POST',
-      headers: headers(), // Include headers with API key and Authorization
-      body: JSON.stringify(listingData), // Convert data to JSON
+      headers: headers(),
+      body: JSON.stringify(data),
     });
 
-    const result = await response.json();
-    console.log('Create Listing API Response:', result); // Log the API response
-
     if (!response.ok) {
-      const errorMessage =
-        result.errors && Array.isArray(result.errors)
-          ? result.errors.map((err) => err.message).join(' ')
-          : result.message || 'An error occurred while creating the listing.';
-      throw new Error(errorMessage);
+      const errorData = await response.json();
+      console.error('Error response from API:', errorData);
+      throw new Error(errorData.message || 'Failed to create auction');
     }
 
-    return result; // Return the full response data
+    const result = await response.json();
+    console.log('Auction successfully created:', result);
+    return result;
   } catch (error) {
-    console.error('Error creating listing:', error); // Log errors
-    throw error; // Re-throw the error for handling in the UI
+    console.error('Error during auction creation:', error);
+    throw error;
   }
 };
+
+

@@ -1,86 +1,117 @@
 import { getUserProfile } from '../api/profile/profile.js';
 import { getUserListings } from '../api/profile/profileListings.js';
+import { getUserBids } from '../api/profile/profileBids.js';
+import { getUserWins } from '../api/profile/profileWins.js';
+import { renderUserProfile } from '../utilities/renderProfile.js';
+import { renderListings } from '../utilities/renderListings.js';
+import { renderBids } from '../utilities/renderBids.js';
+import { renderWins } from '../utilities/renderWins.js';
+import { updateUserProfile } from '../utilities/updateProfile.js';
 
 /**
- * Render the user's profile data.
- * @param {Object} profile - The user's profile data.
+ * Initialize Toggle Buttons for sections.
  */
-const renderUserProfile = (profile) => {
-  const container = document.getElementById('profile-details');
+export const initializeToggleButtons = () => {
+  const buttons = document.querySelectorAll('[data-section]');
+  const sections = document.querySelectorAll('.profile-section');
 
-  if (!container) {
-    console.error('Profile details container not found.');
+  if (!buttons || !sections) {
+    console.error('Toggle buttons or sections not found');
     return;
   }
 
-  const { name, bio, avatar, banner, credits } = profile;
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const targetSection = button.getAttribute('data-section');
 
-  container.innerHTML = `
-    <Section>
-      <img src="${avatar?.url || ''}" alt="${avatar?.alt || 'Avatar'}" />
-      <h2>${name}</h2>
-      <p>${bio || 'No bio provided.'}</p>
-      <p>Credits: ${credits || 0}</p>
-    </Section>
-  `;
+      // Hide all sections
+      sections.forEach((section) => section.classList.add('d-none'));
+
+      // Show the selected section
+      const activeSection = document.getElementById(targetSection);
+      if (activeSection) activeSection.classList.remove('d-none');
+
+      // Update active button styles
+      buttons.forEach((btn) => btn.classList.remove('btn-dark'));
+      button.classList.add('btn-dark'); // Highlight active button
+    });
+  });
+
+  // Show default section (Your Listings)
+  document.getElementById('user-auctions').classList.remove('d-none');
+  buttons[0].classList.add('btn-dark');
 };
 
 /**
- * Render the user's auction listings.
- * @param {Array} listings - The user's auction listings.
+ * Initialize Edit Profile functionality.
  */
-const renderUserListings = (listings) => {
-  const container = document.getElementById('user-auctions');
+const initializeEditProfile = () => {
+  const editButton = document.getElementById('edit-profile-btn');
+  const editForm = document.getElementById('edit-profile-form');
+  const profileDetails = document.getElementById('profile-details');
 
-  if (!container) {
-    console.error('User auctions container not found.');
+  if (!editButton || !editForm || !profileDetails) {
+    console.error('Edit profile elements not found.');
     return;
   }
 
-  if (!Array.isArray(listings) || listings.length === 0) {
-    container.innerHTML = '<p>No auctions found.</p>';
-    return;
-  }
+  // Toggle form visibility
+  editButton.addEventListener('click', () => {
+    const isHidden = editForm.classList.contains('d-none');
+    editForm.classList.toggle('d-none', !isHidden);
+    if (!isHidden) {
+      editForm.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
 
-  // Clear existing content
-  container.innerHTML = '';
+  // Form submission handler
+  editForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
 
-  // Render each listing as a simple structure
-  listings.forEach((listing) => {
-    const card = document.createElement('card');
+    const bio = document.getElementById('edit-bio').value.trim();
+    const avatarUrl = document.getElementById('edit-avatar').value.trim();
 
-    card.innerHTML = `
-      <h3>${listing.title}</h3>
-      <p>Ends at: ${new Date(listing.endsAt).toLocaleString()}</p>
-      <p>${listing.description || 'No description provided'}</p>
-      ${
-        listing.media && listing.media.length
-          ? `<img src="${listing.media[0].url}" alt="${listing.media[0].alt || 'Auction Image'}" />`
-          : ''
-      }
-      <p>Tags: ${listing.tags.join(', ') || 'None'}</p>
-      <p>Bids: ${listing._count.bids || 0}</p>
-      <a href="/pages/auctions/item/${listing.id}/index.html">View Details</a>
-    `;
+    try {
+      // Update profile
+      await updateUserProfile({ bio, avatar: { url: avatarUrl } });
 
-    container.appendChild(card);
+      // Refresh profile UI
+      const profile = await getUserProfile();
+      renderUserProfile(profileDetails, profile);
+
+      alert('Profile updated successfully!');
+      editForm.classList.add('d-none');
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      alert('Failed to update profile. Please try again later.');
+    }
   });
 };
 
 /**
- * Initialize the Profile Page with Profile and Listings.
+ * Initialize the Profile Page.
  */
 export const initializeProfileUI = async () => {
   try {
     // Fetch and render user profile
     const profile = await getUserProfile();
-    renderUserProfile(profile);
+    renderUserProfile(document.getElementById('profile-details'), profile);
 
-    // Fetch and render user's listings
+    // Fetch and render user’s sections
     const listings = await getUserListings();
-    renderUserListings(listings);
+    renderListings(document.getElementById('user-auctions'), listings, 'listings');
+
+    const bids = await getUserBids();
+    renderBids(document.getElementById('user-bids'), bids);
+
+    const wins = await getUserWins();
+    renderWins(document.getElementById('user-wins'), wins);
+
+    // Initialize toggle buttons and edit profile functionality
+    initializeToggleButtons();
+    initializeEditProfile();
   } catch (error) {
-    alert('Failed to load profile or listings. Please try again later.');
+    alert('Failed to load profile, listings, bids, or wins. Please try again later.');
     console.error('Error initializing profile page:', error);
   }
 };

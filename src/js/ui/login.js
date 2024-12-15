@@ -17,7 +17,7 @@ export async function onLogin(event) {
     localStorage.setItem('user', JSON.stringify(result.data));
 
     alert('Login successful!');
-    window.location.href = "/"; // Redirect to homepage
+    window.location.href = '/index.html'; // Redirect to homepage
   } catch (error) {
     alert('Login failed: ' + error.message);
     console.error('Login Error:', error);
@@ -25,3 +25,15 @@ export async function onLogin(event) {
     if (spinner) spinner.style.display = 'none'; // Hide spinner
   }
 }
+
+export const initializeLoginForm = () => {
+  const form = document.getElementById('loginForm');
+  if (form) {
+    form.addEventListener('submit', onLogin);
+  } else {
+    console.error('Login form not found.');
+  }
+};
+
+// Call the function to initialize the form when this file is loaded
+initializeLoginForm();
