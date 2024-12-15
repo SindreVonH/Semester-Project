@@ -1,12 +1,13 @@
 import { getUserProfile } from '../api/profile/profile.js';
 import { getUserListings } from '../api/profile/profileListings.js';
-import { getUserBids } from '../api/profile/profileBids.js';
+import { getUserBids } from '../api/utilities/profileCalls.js'; // Updated path
 import { getUserWins } from '../api/profile/profileWins.js';
 import { renderUserProfile } from '../utilities/renderProfile.js';
 import { renderListings } from '../utilities/renderListings.js';
 import { renderBids } from '../utilities/renderBids.js';
 import { renderWins } from '../utilities/renderWins.js';
 import { updateUserProfile } from '../utilities/updateProfile.js';
+
 
 /**
  * Initialize Toggle Buttons for sections.
