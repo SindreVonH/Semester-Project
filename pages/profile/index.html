@@ -18,52 +18,63 @@
     ></script>
 
     <!-- Main JavaScript -->
-    <script type="module" src="/main.js"></script>
+    <script type="module" src="/main.js" defer></script>
 
     <style>
-      /* Flexbox Layout to Keep Footer at Bottom */
       body {
         display: flex;
         flex-direction: column;
-        min-height: 100vh; 
-        margin: 0;
+        min-height: 100vh;
       }
 
       main {
-        flex: 1; 
+        flex: 1;
+      }
+
+      .bg-indigo {
+        background-color: #6610f2 !important;
+      }
+
+      .bg-teal {
+        background-color: #20c997 !important;
       }
     </style>
   </head>
-  <body class="bg-light text-dark">
-    <!-- Navbar Section -->
+  <body class="bg-body-secondary text-dark">
+    <!-- Navbar -->
     <header></header>
 
-    <!-- Main Profile Section -->
-    <main class="container py-4">
-      <!-- Profile Details -->
-      <section id="profile-details" class="card mb-4 shadow-lg mt-5 pt-3">
-        <div class="row g-0 align-items-center">
-          <div class="col-md-4 p-3 d-flex justify-content-center">
+    <!-- Main Content -->
+    <main class="container py-5 mt-5">
+      <!-- Profile Overview -->
+      <section id="profile-details" class="card shadow-sm border-0 bg-white mb-4">
+        <div class="row g-0 align-items-center p-4">
+          <div class="col-md-4 d-flex justify-content-center mb-3 mb-md-0">
             <img
               src="https://placehold.co/400"
               alt="User Avatar"
               id="user-avatar"
-              class="img-fluid rounded-circle border border-3 border-primary"
+              class="img-fluid rounded-circle border border-3 border-info"
+              style="width: 180px; height: 180px; object-fit: cover;"
             />
           </div>
-          <div class="col-md-5 p-3">
-            <h2 id="user-name" class="card-title fw-bold">User Name</h2>
-            <p id="user-bio" class="text-muted">User Bio</p>
-            <p id="user-credits" class="fw-semibold">Balance: $1000</p>
+          <div class="col-md-5 text-center text-md-start">
+            <h2 id="user-name" class="fw-bold mb-2">User Name</h2>
+            <p id="user-bio" class="text-muted mb-2">User Bio</p>
+            <p id="user-credits" class="fw-semibold fs-5">
+              Balance: <span class="text-success">$1000</span>
+            </p>
           </div>
-          <div class="col-md-3 p-3 text-end">
-            <button id="edit-profile-btn" class="btn btn-danger">Edit Profile</button>
+          <div class="col-md-3 text-center text-md-end">
+            <button id="edit-profile-btn" class="btn btn-outline-primary">
+              Edit Profile
+            </button>
           </div>
         </div>
       </section>
 
       <!-- Edit Profile Form -->
-      <section id="edit-profile-form" class="card mb-4 shadow-lg d-none">
+      <section id="edit-profile-form" class="card shadow-sm border-0 bg-light mb-4 d-none">
         <div class="card-body">
           <h3 class="card-title mb-3">Edit Profile</h3>
           <form id="profile-edit-form">
@@ -75,35 +86,45 @@
               <label for="edit-avatar" class="form-label">Avatar URL</label>
               <input type="url" id="edit-avatar" class="form-control" />
             </div>
-            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="submit" class="btn btn-primary w-100">Save Changes</button>
           </form>
         </div>
       </section>
 
-      <!-- Toggle Buttons -->
-      <div class="d-flex justify-content-center gap-3 mb-4">
-        <button data-section="user-auctions" class="btn btn-danger active">
+      <!-- Section Toggle Buttons -->
+      <div class="d-flex justify-content-center gap-3 mb-4 flex-wrap">
+        <button data-section="user-auctions" class="btn btn-teal active">
           Your Listings
         </button>
-        <button data-section="user-bids" class="btn btn-danger">
+        <button data-section="user-bids" class="btn btn-teal">
           Bid History
         </button>
-        <button data-section="user-wins" class="btn btn-danger">
+        <button data-section="user-wins" class="btn btn-teal">
           Win History
         </button>
       </div>
 
-      <!-- User Listings, Bids, and Wins -->
+      <!-- Dynamic Sections -->
       <section id="user-auctions" class="row g-4 profile-section"></section>
       <section id="user-bids" class="row g-4 profile-section d-none"></section>
       <section id="user-wins" class="row g-4 profile-section d-none"></section>
     </main>
 
-    <!-- Footer Section -->
-    <footer class="bg-dark text-white text-center py-3">
-      <p class="mb-0">&copy; 2024 ActionHouse</p>
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-3 mt-auto">
+      <p class="mb-0">&copy; 2024 Delisted</p>
     </footer>
+
+    <!-- Extra Styling for Toggle Buttons -->
+    <style>
+      .btn-teal {
+        background-color: #20c997;
+        color: white;
+      }
+      .btn-teal:hover {
+        background-color: #198f76;
+        color: white;
+      }
+    </style>
   </body>
 </html>
-
-

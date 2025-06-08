@@ -23,29 +23,31 @@ const renderListings = (listings) => {
 
   listings.forEach((listing) => {
     const card = document.createElement('div');
-    card.classList.add('col-md-6', 'col-lg-3'); // Responsive grid columns
+    card.classList.add('col-12', 'col-sm-6', 'col-lg-3');
 
-    // Bestem bilde-URL: Bruk første media-URL eller placeholder
-    const imageUrl = listing.media?.length ? listing.media[0].url : 'https://placehold.co/400';
+    const imageUrl = listing.media?.length ? listing.media[0].url : 'https://placehold.co/400x250?text=No+Image';
     const imageAlt = listing.media?.length ? listing.media[0].alt || 'Auction Image' : 'Placeholder Image';
 
     card.innerHTML = `
-      <div class="card shadow-sm h-100">
-        <!-- Image Section -->
+      <div class="card h-100 border-0 shadow-sm rounded-4" style="background-color: #ffffff;">
         <a href="/pages/auctions/item/index.html?id=${listing.id}" class="text-decoration-none">
-          <img src="${imageUrl}" class="card-img-top img-fixed" alt="${imageAlt}" />
+          <img src="${imageUrl}" class="card-img-top rounded-top" style="height: 200px; object-fit: cover;" alt="${imageAlt}">
         </a>
-        <!-- Card Body -->
         <div class="card-body d-flex flex-column">
-          <h5 class="card-title text-truncate">${listing.title}</h5>
-          <p class="card-text small text-muted mb-2">Ends at: ${new Date(listing.endsAt).toLocaleString()}</p>
-          <p class="card-text small text-muted mb-2">Created: ${new Date(listing.created).toLocaleString()}</p>
-          <p class="card-text small text-truncate">${listing.description || 'No description provided'}</p>
+          <h5 class="card-title fw-semibold text-truncate" style="color: #6366f1;">${listing.title}</h5>
+          <p class="card-text small text-muted mb-1">
+            <i class="bi bi-hourglass-split"></i> Ends: ${new Date(listing.endsAt).toLocaleString()}
+          </p>
+          <p class="card-text small text-muted mb-1">
+            <i class="bi bi-calendar-plus"></i> Created: ${new Date(listing.created).toLocaleString()}
+          </p>
+          <p class="card-text small text-secondary mb-2">${listing.description || 'No description provided.'}</p>
           <p class="card-text small"><strong>Tags:</strong> ${listing.tags.join(', ') || 'None'}</p>
           <p class="card-text small"><strong>Bids:</strong> ${listing._count?.bids || 0}</p>
-          <!-- View Details Button -->
           <div class="mt-auto">
-            <a href="/pages/auctions/item/index.html?id=${listing.id}" class="btn btn-primary btn-sm w-100">View Details</a>
+            <a href="/pages/auctions/item/index.html?id=${listing.id}" class="btn mt-3 w-100" style="background-color: #10b981; color: white; border-radius: 999px;">
+              View Details
+            </a>
           </div>
         </div>
       </div>
@@ -54,6 +56,7 @@ const renderListings = (listings) => {
     container.appendChild(card);
   });
 };
+
 /**
  * Initialize the Auction Listings Page.
  */

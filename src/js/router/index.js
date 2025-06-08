@@ -4,10 +4,10 @@ function isLoggedIn() {
 
 export default async function router(pathname = window.location.pathname) {
   const publicPaths = [
-    '/index.html', // Homepage
-    '/pages/auctions/item/index.html', // Individual auction page
-    '/pages/auth/login/index.html', // Login page
-    '/pages/auth/register/index.html', // Register page
+    '/index.html',
+    '/pages/auctions/item/index.html',
+    '/pages/auth/login/index.html', 
+    '/pages/auth/register/index.html', 
   ];
 
   const requiresAuth = !publicPaths.some((path) =>
@@ -15,8 +15,8 @@ export default async function router(pathname = window.location.pathname) {
   );
 
   if (requiresAuth && !isLoggedIn()) {
-    // Om brukeren ikke er logget inn og prøver å gå til en beskyttet side
-    window.location.href = '/pages/auth/login/index.html'; // Send dem til login-siden
+    
+    window.location.href = '/pages/auth/login/index.html'; 
     return;
   }
 
